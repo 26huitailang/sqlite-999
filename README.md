@@ -27,5 +27,14 @@ sqlite3 test.db
 
 ## solution
 
-1. text(IN_CONDITION)
-2. bindparam() with literal_execute=True
+1. Solution1:
+
+```python
+Query.filter(text("table.col in (1,2,3,4 ....)"))
+```
+
+2. Solution2: sqlalchemy >= 1.4 bindparam() with literal_execute=True
+
+```python
+Query.filter(Table.Column.in_(bindparam("xxx", range(300000), literal_execute=True)))
+```
